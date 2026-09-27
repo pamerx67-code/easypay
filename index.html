@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f7fb" />
+  <title>EasyPay — Your digital wallet</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="EasyPay home"><span class="brand-mark">e</span> easy<span>pay</span></a>
+      <div id="headerActions" class="header-actions"></div>
+    </header>
+
+    <section id="authView" class="auth-layout">
+      <div class="welcome-panel">
+        <div class="eyebrow"><span class="live-dot"></span> YOUR MONEY, MADE SIMPLE</div>
+        <h1>A simpler way<br />to move money.</h1>
+        <p>Send money to another EasyPay wallet or make a card transfer — all from one clear, easy-to-use place.</p>
+        <div class="welcome-features">
+          <div><span class="feature-icon">↗</span><span><strong>Fast wallet transfers</strong><small>Send money in just a few steps</small></span></div>
+          <div><span class="feature-icon">⌑</span><span><strong>Your own wallet code</strong><small>Easy for friends to find you</small></span></div>
+          <div><span class="feature-icon">○</span><span><strong>Built for peace of mind</strong><small>Clear balances and activity</small></span></div>
+        </div>
+        <div class="decor-circle circle-one"></div><div class="decor-circle circle-two"></div>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-tabs" role="tablist" aria-label="Account access">
+          <button class="auth-tab active" type="button" data-auth="login">Log in</button>
+          <button class="auth-tab" type="button" data-auth="register">Create account</button>
+        </div>
+        <div id="authMessage" class="message" role="status" aria-live="polite"></div>
+        <form id="loginForm" class="auth-form">
+          <h2>Welcome back</h2>
+          <p class="form-intro">Enter your details to access your wallet.</p>
+          <label for="loginPhone">Phone number</label>
+          <input id="loginPhone" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="15" placeholder="998901234567" autocomplete="username" required />
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" placeholder="Your password" autocomplete="current-password" required />
+          <button class="primary-button full-button" type="submit">Log in to your wallet <span>→</span></button>
+          <p class="form-switch">New to EasyPay? <button type="button" data-switch="register">Create an account</button></p>
+        </form>
+        <form id="registerForm" class="auth-form hidden">
+          <h2>Get started</h2>
+          <p class="form-intro">Create an account and get your own wallet code.</p>
+          <label for="registerName">Full name</label>
+          <input id="registerName" type="text" placeholder="e.g. Alex Smith" autocomplete="name" required />
+          <label for="registerPhone">Phone number</label>
+          <input id="registerPhone" type="tel" inputmode="numeric" pattern="[0-9]*" minlength="7" maxlength="15" placeholder="998901234567" autocomplete="tel" required />
+          <label for="registerPassword">Password <span class="label-hint">at least 4 characters</span></label>
+          <input id="registerPassword" type="password" placeholder="Create a password" autocomplete="new-password" minlength="4" required />
+          <button class="primary-button full-button" type="submit">Create my wallet <span>→</span></button>
+          <p class="form-switch">Already have an account? <button type="button" data-switch="login">Log in</button></p>
+        </form>
+        <p class="demo-note">New wallets start with a 0 UZS balance.</p>
+      </div>
+    </section>
+
+    <section id="walletView" class="wallet-view hidden">
+      <div class="dashboard-heading">
+        <div><div class="eyebrow">YOUR DASHBOARD</div><h1>Welcome, <span id="userName">User</span> 👋</h1><p>Here’s your wallet overview and recent activity.</p></div>
+        <button id="logoutButton" class="logout-button" type="button">Log out <span>↗</span></button>
+      </div>
+      <div class="dashboard-grid">
+        <div class="main-column">
+          <article class="balance-card">
+            <div class="balance-top"><span>WALLET BALANCE</span><label class="currency-picker" for="currencySelect"><span class="sr-only">Wallet currency</span><select id="currencySelect" aria-label="Wallet currency"><option value="UZS">UZS</option><option value="USD">USD</option><option value="RUB">RUB</option></select></label></div>
+            <div id="balanceAmount" class="balance-amount">0 <span>UZS</span></div>
+            <div class="balance-bottom"><span>Your wallet code</span><button id="copyWalletCode" class="wallet-code" type="button"><span id="walletCode">—</span> <span class="copy-icon">▢</span></button></div>
+            <div class="balance-decoration"></div>
+          </article>
+          <article class="transfer-card withdrawal-card">
+            <div class="section-heading"><div><h2>Withdraw to card</h2><p>Withdraw from your UZS wallet</p></div><span class="send-symbol">▤</span></div>
+            <div id="withdrawalMessage" class="message" role="status" aria-live="polite"></div>
+            <form id="withdrawalForm">
+              <label for="withdrawalCard">Card number</label>
+              <input id="withdrawalCard" type="text" inputmode="numeric" maxlength="16" placeholder="0000 0000 0000 0000" autocomplete="off" required />
+              <label for="withdrawalAmount">Withdrawal amount</label>
+              <div class="amount-input"><input id="withdrawalAmount" type="number" min="1" step="1" placeholder="0" required /><span>UZS</span></div>
+              <button class="primary-button full-button" type="submit">Withdraw <span>→</span></button>
+            </form>
+          </article>
+          <article class="transfer-card">
+            <div class="section-heading"><div><h2>Send money</h2><p>Choose where you’d like to send it</p></div><span class="send-symbol">↗</span></div>
+            <div class="transfer-tabs" role="tablist" aria-label="Transfer type">
+              <button type="button" class="transfer-tab active" data-transfer="wallet"><span>◎</span> To a wallet</button>
+              <button type="button" class="transfer-tab" data-transfer="card"><span>▤</span> To a card</button>
+            </div>
+            <div id="transferMessage" class="message" role="status" aria-live="polite"></div>
+            <form id="transferForm" novalidate>
+              <label id="recipientLabel" for="recipient">Recipient’s wallet code</label>
+              <input id="recipient" type="text" placeholder="e.g. EP12345678" required />
+              <div id="recipientHint" class="input-hint">Ask the recipient for their EasyPay wallet code.</div>
+              <label for="amount">Amount</label>
+              <div class="amount-input"><input id="amount" type="number" min="1" step="1" placeholder="0" required /><span id="amountCurrency">UZS</span></div>
+              <label for="transferNote">Note <span class="label-hint">optional</span></label>
+              <input id="transferNote" type="text" maxlength="80" placeholder="e.g. Lunch" />
+              <button class="primary-button full-button" type="submit">Review and send <span>→</span></button>
+            </form>
+            <p class="transfer-disclaimer">Separate UZS, USD, and RUB balances; no exchange conversion. Wallet transfers are credited only after the recipient accepts. Card transfers are recorded here and are not processed by a bank.</p>
+          </article>
+        </div>
+        <aside class="side-column">
+          <article class="info-card code-card"><div class="side-card-icon">⌑</div><h3>Your wallet code</h3><p>Share this code with friends so they can send money to your wallet.</p><div class="code-box"><span id="walletCodeAside">—</span><button id="copyWalletCodeAside" type="button" aria-label="Copy wallet code">▢</button></div><small>Every wallet has its own unique code.</small></article>
+          <article class="info-card rates-card">
+            <div class="rates-heading"><div><h3>Sample exchange rates</h3><p>Reference values in Uzbek soʻm</p></div><span class="rates-symbol">↔</span></div>
+            <div class="rate-row"><span><strong>USD</strong><small>1 US dollar</small></span><b>≈ 12,900 UZS</b></div>
+            <div class="rate-row"><span><strong>RUB</strong><small>1 Russian ruble</small></span><b>≈ 140 UZS</b></div>
+            <div class="rate-row"><span><strong>UZS</strong><small>Base currency</small></span><b>Uzbek soʻm</b></div>
+            <p class="rates-note">Illustrative rates only — not live exchange prices. Wallet balances remain separate.</p>
+          </article>
+          <article class="info-card pending-card"><div class="history-heading"><div><h3>Incoming transfers</h3><p>Review transfers sent to your wallet</p></div><span class="history-symbol">✓</span></div><div id="pendingMessage" class="message" role="status" aria-live="polite"></div><div id="pendingTransferList" class="transaction-list"><div class="empty-history"><p>No transfers waiting</p><small>Incoming wallet transfers will appear here.</small></div></div></article>
+          <article class="info-card history-card"><div class="history-heading"><div><h3>Recent activity</h3><p>Your latest wallet transactions</p></div><span class="history-symbol">◷</span></div><div id="transactionList" class="transaction-list"><div id="emptyHistory" class="empty-history"><span>↗</span><p>No activity yet</p><small>Your transfers will appear here.</small></div></div></article>
+        </aside>
+      </div>
+    </section>
+    <footer>© 2026 EasyPay <span>·</span> Money made simpler</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
